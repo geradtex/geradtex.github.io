@@ -1,0 +1,7 @@
+---
+title: ""
+---
+
+<meta http-equiv="refresh" content="0; url=01-BasicExample/quarto/main.html">
+
+Redirecting to [Exemple 1](01-BasicExample/quarto/main.html)...
