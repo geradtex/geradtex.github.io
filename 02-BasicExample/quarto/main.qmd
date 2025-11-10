@@ -129,7 +129,7 @@ Malheureusement, le code généré par l'agent IA contenait plusieurs erreurs et
 Et maintenant, le code compile correctement mais le résultat final n'est toujours pas parfait. Certaines proportions et positions des éléments ne correspondent pas exactement à l'image de référence.
 
 ::: {.text-center}
-![](chatgpt-fixed.pdf)
+![](chatgpt-fixed.png){width=400px}
 :::
 
 
