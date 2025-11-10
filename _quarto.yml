@@ -13,3 +13,5 @@ website:
         href: 02-BasicExample/quarto/main.html
       - text: "Mouvement de projectile"
         href: 03-ProjectileMotion/quarto/main.html
+      - text: "Graphe du VRP"
+        href: 04-VRP/quarto/main.html

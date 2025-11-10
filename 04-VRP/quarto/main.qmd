@@ -1,0 +1,13 @@
+---
+title: "Graphe du VRP"
+lang: fr
+format:
+    html:
+        toc: true
+        number-sections: true
+        theme: cosmo
+---
+
+Dans cet exemple, nous allons créer un graphe représentant un problème de routage de véhicules (VRP) en utilisant TikZ. Le graphe illustrera les clients, le dépôt, et les routes empruntées par les véhicules.
+
+![](image.svg){width=600px}
