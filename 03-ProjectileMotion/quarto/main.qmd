@@ -1,0 +1,170 @@
+---
+title: "Mouvement d'un projectile"
+lang: fr
+format:
+    html:
+        toc: true
+        number-sections: true
+        theme: cosmo
+---
+
+On souhaite utiliser Ti*k*Z pour tracer la trajectoire d'un projectile lancé avec une vitesse initiale et un angle donnés. Nous allons également représenter la vitesse du projectile à différents instants de son vol comme illustré ci-dessous.
+
+::: {.text-center}
+![](image.png){width=600px}
+:::
+
+# Préambule
+
+Un projectile est lancé avec une vitesse initiale $v_{0}$ sous un angle $\theta$ par rapport à l'horizontale. La trajectoire du projectile est influencée par la gravité, qui agit vers le bas avec une accélération constante $g$. Les équations du mouvement du projectile sont données par :
+
+$$
+x(t) = v_{0} \cos(\theta) t
+$$
+
+$$
+y(t) = -\frac{1}{2} g t^{2} + v_{0} \sin(\theta) t
+$$
+
+où $x(t)$ et $y(t)$ sont les positions horizontale et verticale du projectile à l'instant $t$.
+
+Les équations de la vitesse du projectile sont données par :
+
+$$
+v_{x}(t) = v_{0} \cos(\theta)
+$$
+
+$$
+v_{y}(t) = -g t + v_{0} \sin(\theta)
+$$
+
+La durée totale de vol $T$ du projectile peut être calculée en trouvant le temps lorsque le projectile revient au sol ($y(T) = 0$) :
+
+$$
+T = \frac{2 v_{0} \sin(\theta)}{g}
+$$
+
+# Étapes de la construction
+
+1. **Définir les paramètres initiaux** : Choisir une vitesse initiale $v_{0}$, un angle de lancement $\theta$, et la valeur de l'accélération due à la gravité $g$.
+
+2. **Calculer la durée totale de vol** : Utiliser la formule pour $T$ afin de déterminer combien de temps le projectile restera en l'air.
+
+3. **Tracer les axes** : Dessiner les axes horizontaux et verticaux pour représenter le plan de mouvement du projectile.
+
+4. **Tracer le projectile** : Utiliser les équations de position pour tracer le projectile à différents instants de temps entre $t=0$ et $t=T$.
+
+5. **Ajouter les vecteurs de vitesse** : À plusieurs instants de temps, calculer les composantes de la vitesse $v_{x}(t)$ et $v_{y}(t)$, puis dessiner les vecteurs de vitesse à ces points sur la trajectoire.
+
+6. **Ajouter la trajectoire complète** : Tracer la trajectoire complète du projectile en utilisant une courbe lisse qui relie tous les points calculés.
+
+# Code Ti*k*Z
+
+Voici un exemple de code Ti*k*Z pour réaliser ce tracé :
+
+```latex
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\tikzset{
+    axis/.style={-stealth},
+}
+
+\begin{tikzpicture}[scale=4]
+    \def\InitialAngle{40}
+    \def\InitialVelocity{6}
+    \def\Gravity{9.8}
+    \def\BallRadius{0.1}
+    \def\VelocityScale{0.1}
+    \def\AngleScale{1.6}
+    \def\AxisXMargin{0.3}
+    \def\AxisXScale{1.2}
+    \def\AxisYMargin{0.3}
+    \def\AxisYScale{1.2}
+
+    \pgfmathsetmacro{\MaximumTime}{%
+        2*\InitialVelocity*sin(\InitialAngle)/\Gravity%
+    }
+    \pgfmathdeclarefunction{BallX}{1}{%
+        \pgfmathparse{%
+            \InitialVelocity*(#1*\MaximumTime)*cos(\InitialAngle)%    
+        }
+    }
+    \pgfmathdeclarefunction{BallY}{1}{%
+        \pgfmathparse{%
+            -0.5*\Gravity*(#1*\MaximumTime)^2%
+            +\InitialVelocity*(#1*\MaximumTime)*sin(\InitialAngle)%
+        }
+    }
+    \pgfmathdeclarefunction{BallVx}{1}{%
+        \pgfmathparse{%
+            \InitialVelocity*cos(\InitialAngle)%
+        }
+    }
+    \pgfmathdeclarefunction{BallVy}{1}{%
+        \pgfmathparse{%
+            -\Gravity*(#1*\MaximumTime)%
+            +\InitialVelocity*sin(\InitialAngle)%
+        }
+    }
+    \newcommand\BallXFormula{%
+        x = v_{0}t\cos\theta
+    }
+    \newcommand\BallYFormula{%
+        y = -\frac{1}{2}gt^{2} + v_{0}t\sin\theta
+    }
+
+    \pgfmathsetmacro{\MaximumX}{BallX(1.0)}
+    \pgfmathsetmacro{\MaximumY}{BallY(0.5)}
+
+    \newcommand{\DrawBall}[2][black]{
+        \coordinate (P) at ({BallX(#2)},{BallY(#2)});
+        \coordinate (V) at ({BallVx(#2)},{BallVy(#2)});
+        \filldraw[ball color=#1!50!]
+            (P) circle (\BallRadius);
+        \draw[-stealth, thick, #1]
+            (P) --++($\VelocityScale*(V)$)
+            node[above, sloped] {$\vec{v}$};
+    }
+    
+    \draw[axis]
+        (-\AxisXMargin,0) -- ($\AxisXScale*(\MaximumX,0)$)
+        node[right] {$x$};
+
+    \draw[axis]
+        (0,-\AxisYMargin) -- ($\AxisYScale*(0,\MaximumY)$)
+        node[above] {$y$};
+
+    \filldraw[opacity=0.2, fill=blue!50]
+        (\BallRadius*\AngleScale,0) arc (0:\InitialAngle:\BallRadius*\AngleScale)
+        node[opacity=1, midway, above right] {$\theta$}
+        -- (0,0) -- cycle;
+
+    \foreach \t in {0,0.8,1} {
+        \DrawBall{\t}
+    }
+    
+    \pgfmathsetmacro{\TimeToLabel}{0.225}
+    \DrawBall[blue]{\TimeToLabel}
+    \coordinate (Pt) at ({BallX(\TimeToLabel)},{BallY(\TimeToLabel)}); 
+    \draw[densely dotted]
+        (Pt) -- (Pt |- 0, 0)
+        node[below] {$\BallXFormula$}
+        (Pt) -- (Pt -| 0, 0)
+        node[left] {$\displaystyle \BallYFormula$}
+        ;
+    \DrawBall[red]{0.5}
+
+    \draw[
+        samples=256,
+        densely dotted,
+        domain=0:1,
+        variable=\t
+    ] plot ({BallX(\t)}, {BallY(\t)});
+
+\end{tikzpicture}
+\end{document}
+```

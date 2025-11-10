@@ -1,0 +1,90 @@
+\documentclass[border=10pt]{standalone}
+\usepackage{tikz}
+\usepackage{amsmath}
+\usetikzlibrary{arrows.meta,decorations.pathmorphing,decorations.pathreplacing}
+\usetikzlibrary{calc}
+\usetikzlibrary{positioning}
+
+% Slightly "sketchy" style: small random perturbations to mimic hand-drawn look
+\tikzset{
+  hand/.style={line width=1.2pt, rounded corners=1pt, decorate, decoration={random steps,segment length=1pt,amplitude=0.2pt}},
+  node circle/.style={circle, draw=black!80, very thick, inner sep=1.6pt, minimum size=8pt},
+  thinline/.style={line width=1.0pt},
+  input arrow/.style={-Latex, line width=3pt, draw=red!75!black, shorten >=1pt},
+  output arrow/.style={-Latex, line width=3pt, draw=blue!55!black, shorten >=1pt},
+  normal arrow/.style={-Latex, line width=1.2pt, draw=black!80, shorten >=1pt},
+  faint/.style={opacity=0.6}
+}
+
+\begin{document}
+\begin{tikzpicture}[scale=1, every node/.style={font=\small}]
+
+  % Coordinates chosen to reproduce relative positions
+  \coordinate (A) at (-4.2,1.4);
+  \coordinate (B) at (0,1.4);
+  \coordinate (C) at (3.8,1.4);
+  \coordinate (D) at (5.6,0.2);   % rightmost exit node
+  \coordinate (E) at (-1.6,-0.8);
+  \coordinate (S) at (1.2,-0.6);  % central bottom node
+
+  % Draw horizontal main line top A-B
+  \draw[hand] ($(A)+(0.25,0)$) -- ($(B)-(0.25,0)$) ;
+
+  % Draw horizontal main line top B-C
+  \draw[hand] ($(B)+(0.25,0)$) -- ($(C)-(0.25,0)$);
+
+  % Draw horizontal bottom line E -- S
+  \draw[hand] ($(E)+(0.25,0)$) -- ($(S)-(0.35,0)$);
+
+  % Horizontal from S toward D (slanted a bit)
+  \draw[hand] ($(S)+(0.4,0.05)$) -- ($(D)-(0.6,0.35)$);
+
+  % Diagonal connectors to form two triangles (B-S and C-S), and E to B
+  \draw[hand] ($(B)-(0.05,0.12)$) -- ($(S)+( -0.15,0.15)$); % B -> S
+  \draw[hand] ($(C)-(0.05,0.12)$) -- ($(S)+(0.10,0.12)$);  % C -> S
+  \draw[hand] ($(E)+(0.14,0.1)$) -- ($(B)-(0.08,0.16)$);    % E -> B
+
+  % Circle nodes
+  \node[node circle] (nA) at (A) {};
+  \node[node circle] (nB) at (B) {};
+  \node[node circle] (nC) at (C) {};
+  \node[node circle] (nD) at (D) {};
+  \node[node circle] (nE) at (E) {};
+  \node[node circle] (nS) at (S) {};
+
+  % Small arrowheads on some connecting lines to indicate direction (like in the photo)
+  \draw[normal arrow] ($(B)+(-0.08,-0.05)$) -- ($(B)+(0.02,-0.05)$); % small arrow near B pointing rightwards along top
+  \draw[normal arrow] ($(S)+(-0.06,0.10)$) -- ($(S)+(0.02,0.05)$);  % arrow pointing into S (from above-right)
+  \draw[normal arrow] ($(B)+(-0.02,-0.22)$) -- ($(B)+(-0.02,-0.12)$); % small arrow on B indicating incoming diagonal
+  \draw[normal arrow] ($(C)+(-0.02,-0.22)$) -- ($(C)+(-0.02,-0.12)$); % small arrow on C indicating incoming diagonal
+
+  % Thick colored "input" red brush-stroke arrows (angled) into A, E and S (entrées)
+  \draw[input arrow] ($(A)+(-0.9,0.6)$) -- ($(A)+(-0.15,0.02)$);
+  \draw[input arrow] ($(E)+(-0.7,-0.4)$) -- ($(E)+(-0.12,0.06)$);
+  \draw[input arrow] ($(S)+(-0.1,-0.85)$) -- ($(S)+(-0.02,0.06)$);
+
+  % Blue "output" arrows leaving B, C, D and S (sorties)
+  \draw[output arrow] ($(nB)+(0.18,0.18)$) -- ($(nB)+(0.9,0.9)$); % small slanted up-right
+  \draw[output arrow] ($(nC)+(0.28,0.18)$) -- ($(nC)+(1.0,0.9)$);
+  \draw[output arrow] ($(nD)+(0.18,0.22)$) -- ($(nD)+(1.0,1.0)$);
+  \draw[output arrow] ($(nS)+(0.38,0.20)$) -- ($(nS)+(1.0,0.9)$);
+
+  % Node labels (A,B,C,E,S etc) placed like handwriting next to circles
+  \node[above left=2pt of nA] {\small A};
+  \node[above=2pt of nB] {\small B};
+  \node[above=2pt of nC] {\small C};
+  \node[above right=1pt of nD] {\small D};
+  \node[above left=2pt of nE] {\small E};
+  \node[right=2pt of nS] {\small F};
+
+  % French group labels similar to the photo
+  \node[font=\sffamily\large\itshape, red!60!black] at (-3.6,-1.8) {entrées};
+  \node[font=\sffamily\large\itshape, blue!55!black] at (4.6,1.8) {sorties};
+
+  % small decorative little arcs near some nodes to mimic the hand-drawn curls
+  \draw[faint, hand] ($(nB)+(-0.26,-0.04)$) -- ($(nB)+(-0.06,0.08)$);
+  \draw[faint, hand] ($(nC)+(-0.25,-0.06)$) -- ($(nC)+(-0.06,0.07)$);
+  \draw[faint, hand] ($(nS)+(-0.12,0.02)$) -- ($(nS)+(0.04,0.14)$);
+
+\end{tikzpicture}
+\end{document}

@@ -1,0 +1,69 @@
+/.quarto/
+**/*.quarto_ipynb
+
+# -----------------------------------------------------------------
+# 1. Quarto/Pandoc Output and Intermediate Files
+# -----------------------------------------------------------------
+
+# Directory containing rendered HTML support files (often repeated)
+*/main_files/
+
+# Temporary and cache files created by Quarto
+.quarto/
+
+# Generated HTML, PDF, and DOCX files (unless you want to commit them)
+# Note: Since you are publishing to GitHub Pages, you MUST KEEP the HTML files.
+# We will only ignore the PDF files, which are generated from Quarto/LaTeX.
+# The `ls -R` output shows your main.html and main.pdf are in the same directory.
+# We'll ignore the PDFs and the intermediate Quarto outputs.
+
+# Generated Quarto/Pandoc documents (unless needed)
+*.pdf
+*.docx
+*.epub
+
+# Quarto's intermediate executable and rendered file records
+*.quarto_ipynb
+*.ipynb.quarto-backup
+
+# -----------------------------------------------------------------
+# 2. LaTeX/Texmaker/Compiler Output (Auxiliary Files)
+# -----------------------------------------------------------------
+
+# These files are generated every time LaTeX compiles a .tex file
+*.aux
+*.bbl
+*.blg
+*.brf
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.dvi
+*.loa
+*.lof
+*.lot
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+*.vrb
+*.tdo
+
+# Texmaker/TeXShop/Overleaf intermediate files
+*~
+.#*
+
+# -----------------------------------------------------------------
+# 3. Environment Specific Files
+# -----------------------------------------------------------------
+
+# OS generated files (macOS)
+.DS_Store
+
+# IDE/Editor files (e.g., VS Code)
+.vscode/
+
+# Linux/Unix temporary files
+*.swp
+*.bak

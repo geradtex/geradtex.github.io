@@ -1,0 +1,70 @@
+\documentclass{standalone}
+\usepackage{tikz}
+
+\begin{document}
+
+\tikzset{
+    node circle/.style={
+        circle,
+        draw=black!80,
+        very thick,
+        inner sep=1pt,
+        minimum size=4pt
+    },
+    edge arrow/.style={
+        ->,
+        line width=1.2pt,
+        draw=black!80,
+        shorten >=1pt
+    },
+    input arrow/.style={
+        <-,
+        line width=1.5pt,
+        draw=red!75!black,
+        shorten <=1pt
+    },
+    output arrow/.style={
+        ->,
+        line width=1.5pt,
+        draw=blue!55!black,
+        shorten >=1pt
+    }
+}
+
+\begin{tikzpicture}
+
+\def\unitheight{1.25}
+\def\unitwidth{1.5}
+
+\def\inputangle{225}
+\def\inputradius{1}
+
+\def\outputangle{45}
+\def\outputradius{1}
+
+\node [node circle, label=145:A] (A) at (0, 0) {};
+\node [node circle, label=100:B] (B) at (2 * \unitwidth, 0) {};
+\node [node circle, label=100:C] (C) at (4 * \unitwidth, 0) {};
+\node [node circle, label=0:D] (D) at (6 * \unitwidth, -1 * \unitheight) {};
+\node [node circle, label=170:E] (E) at (1 * \unitwidth, -2 * \unitheight) {};
+\node [node circle, label=280:F] (F) at (3 * \unitwidth, -2 * \unitheight) {};
+
+\draw [edge arrow] (A) -- (B);
+\draw [edge arrow] (B) -- (C);
+\draw [edge arrow] (C) -- (D);
+\draw [edge arrow] (E) -- (F);
+\draw [edge arrow] (F) -- (D);
+\draw [edge arrow] (E) -- (B);
+\draw [edge arrow] (B) -- (F);
+\draw [edge arrow] (F) -- (C);
+
+\draw[input arrow] (A) -- ++ (\inputangle:\inputradius);
+\draw[input arrow] (E) -- ++ (\inputangle:\inputradius) node[left] {entrées};
+\draw[input arrow] (F) -- ++ (\inputangle:\inputradius);
+
+\draw[output arrow] (B) -- ++ (\outputangle:\outputradius);
+\draw[output arrow] (C) -- ++ (\outputangle:\outputradius) node[right] {sorties};
+\draw[output arrow] (D) -- ++ (\outputangle:\outputradius);
+
+\end{tikzpicture}
+\end{document}

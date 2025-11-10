@@ -1,0 +1,104 @@
+\documentclass{standalone}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+
+\begin{document}
+
+\tikzset{
+    axis/.style={-stealth},
+}
+
+\begin{tikzpicture}[scale=4]
+    \def\InitialAngle{40}
+    \def\InitialVelocity{6}
+    \def\Gravity{9.8}
+    \def\BallRadius{0.1}
+    \def\VelocityScale{0.1}
+    \def\AngleScale{1.6}
+    \def\AxisXMargin{0.3}
+    \def\AxisXScale{1.2}
+    \def\AxisYMargin{0.3}
+    \def\AxisYScale{1.2}
+
+    \pgfmathsetmacro{\MaximumTime}{%
+        2*\InitialVelocity*sin(\InitialAngle)/\Gravity%
+    }
+    \pgfmathdeclarefunction{BallX}{1}{%
+        \pgfmathparse{%
+            \InitialVelocity*(#1*\MaximumTime)*cos(\InitialAngle)%    
+        }
+    }
+    \pgfmathdeclarefunction{BallY}{1}{%
+        \pgfmathparse{%
+            -0.5*\Gravity*(#1*\MaximumTime)^2%
+            +\InitialVelocity*(#1*\MaximumTime)*sin(\InitialAngle)%
+        }
+    }
+    \pgfmathdeclarefunction{BallVx}{1}{%
+        \pgfmathparse{%
+            \InitialVelocity*cos(\InitialAngle)%
+        }
+    }
+    \pgfmathdeclarefunction{BallVy}{1}{%
+        \pgfmathparse{%
+            -\Gravity*(#1*\MaximumTime)%
+            +\InitialVelocity*sin(\InitialAngle)%
+        }
+    }
+    \newcommand\BallXFormula{%
+        x = v_{0}t\cos\theta
+    }
+    \newcommand\BallYFormula{%
+        y = -\frac{1}{2}gt^{2} + v_{0}t\sin\theta
+    }
+
+    \pgfmathsetmacro{\MaximumX}{BallX(1.0)}
+    \pgfmathsetmacro{\MaximumY}{BallY(0.5)}
+
+    \newcommand{\DrawBall}[2][black]{
+        \coordinate (P) at ({BallX(#2)},{BallY(#2)});
+        \coordinate (V) at ({BallVx(#2)},{BallVy(#2)});
+        \filldraw[ball color=#1!50!]
+            (P) circle (\BallRadius);
+        \draw[-stealth, thick, #1]
+            (P) --++($\VelocityScale*(V)$)
+            node[above, sloped] {$\vec{v}$};
+    }
+    
+    \draw[axis]
+        (-\AxisXMargin,0) -- ($\AxisXScale*(\MaximumX,0)$)
+        node[right] {$x$};
+
+    \draw[axis]
+        (0,-\AxisYMargin) -- ($\AxisYScale*(0,\MaximumY)$)
+        node[above] {$y$};
+
+    \filldraw[opacity=0.2, fill=blue!50]
+        (\BallRadius*\AngleScale,0) arc (0:\InitialAngle:\BallRadius*\AngleScale)
+        node[opacity=1, midway, above right] {$\theta$}
+        -- (0,0) -- cycle;
+
+    \foreach \t in {0,0.8,1} {
+        \DrawBall{\t}
+    }
+    
+    \pgfmathsetmacro{\TimeToLabel}{0.225}
+    \DrawBall[blue]{\TimeToLabel}
+    \coordinate (Pt) at ({BallX(\TimeToLabel)},{BallY(\TimeToLabel)}); 
+    \draw[densely dotted]
+        (Pt) -- (Pt |- 0, 0)
+        node[below] {$\BallXFormula$}
+        (Pt) -- (Pt -| 0, 0)
+        node[left] {$\displaystyle \BallYFormula$}
+        ;
+    \DrawBall[red]{0.5}
+
+    \draw[
+        samples=256,
+        densely dotted,
+        domain=0:1,
+        variable=\t
+    ] plot ({BallX(\t)}, {BallY(\t)});
+
+\end{tikzpicture}
+\end{document}

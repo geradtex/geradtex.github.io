@@ -1,0 +1,15 @@
+# _quarto.yml content
+project:
+  type: website
+
+website:
+  title: "GERAD: Tutoriel Ti*k*Z"
+  navbar:
+    # Create links to each sub-project's index/main page
+    left:
+      - text: "Exemple 1"
+        href: 01-BasicExample/quarto/main.html
+      - text: "Exemple 2"
+        href: 02-BasicExample/quarto/main.html
+      - text: "Mouvement de projectile"
+        href: 03-ProjectileMotion/quarto/main.html
