@@ -5,6 +5,7 @@ project:
 
 website:
   title: "GERAD: Tutoriel Ti*k*Z"
+  page-navigation: true
   navbar:
     left:
       - text: "Exemple 1"
