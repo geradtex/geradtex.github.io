@@ -1,6 +1,7 @@
 # _quarto.yml content
 project:
   type: website
+  output-dir: docs
 
 website:
   title: "GERAD: Tutoriel Ti*k*Z"
