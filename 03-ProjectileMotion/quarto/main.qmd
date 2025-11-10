@@ -62,6 +62,7 @@ $$
 
 Voici un exemple de code Ti*k*Z pour réaliser ce tracé :
 
+{% raw %}
 ```latex
 \documentclass{standalone}
 \usepackage{tikz}
@@ -168,3 +169,4 @@ Voici un exemple de code Ti*k*Z pour réaliser ce tracé :
 \end{tikzpicture}
 \end{document}
 ```
+{% endraw %}

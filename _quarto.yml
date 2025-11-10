@@ -5,7 +5,6 @@ project:
 website:
   title: "GERAD: Tutoriel Ti*k*Z"
   navbar:
-    # Create links to each sub-project's index/main page
     left:
       - text: "Exemple 1"
         href: 01-BasicExample/quarto/main.html
