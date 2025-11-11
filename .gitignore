@@ -67,3 +67,8 @@
 # Linux/Unix temporary files
 *.swp
 *.bak
+
+# R generated files
+.Rhistory
+.RData
+.Rproj.user/

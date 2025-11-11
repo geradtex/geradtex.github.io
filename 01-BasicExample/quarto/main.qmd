@@ -43,6 +43,14 @@ On commence par dessiner un axe horizontal avec une flèche à son extrémité d
 \draw[->, thick] (-0.5,0) -- (10.5,0);
 ```
 
+Cette commande dessine une ligne épaisse avec une flèche allant du point `(-0.5,0)` au point `(10.5,0)`. Le choix des coordonnées permet de laisser un peu d'espace avant le début de l'axe et après la fin de l'axe. La flèche est placée en utilisant l'option `->`. L'option `thick` rend la ligne plus épaisse.
+
+```{r}
+#| echo: false
+#| engine: tikz
+\draw[->, thick] (-0.5, 0) -- (10.5, 0);
+```
+
 Ensuite on peut ajouter des étiquettes sur l'axe en utilisant des segments verticaux et des nœuds pour les numéros :
 
 ```latex
