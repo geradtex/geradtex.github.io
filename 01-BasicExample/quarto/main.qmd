@@ -132,7 +132,7 @@ On peut ensuite ajouter le rectangle bleu au-dessus de l'axe qui contient le tex
 
 Le résultat doit ressembler à ceci :
 
-```{r tikz-with-first-bloc}
+```{r tikz-with-bloc}
 #| echo: false
 #| engine: tikz
 \begin{tikzpicture}
@@ -146,7 +146,7 @@ Le résultat doit ressembler à ceci :
 \draw[-] (6, 0.2) -- (6, -0.2) node[below] {6};
 \draw[-] (7, 0.2) -- (7, -0.2) node[below] {7};
 \draw[-] (8, 0.2) -- (8, -0.2) node[below] {8};
-\draw[-] (9, 0, 0.2) -- (9, -0.2) node[below] {9};
+\draw[-] (9, 0.2) -- (9, -0.2) node[below] {9};
 \draw[-] (10, 0.2) -- (10, -0.2) node[below] {10};
 \node[
     rectangle,
