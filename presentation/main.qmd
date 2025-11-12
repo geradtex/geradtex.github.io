@@ -1,0 +1,358 @@
+---
+title: "Tutoriel: Ti*k*Z"
+subtitle: "Introduction à Ti*k*Z"
+lang: fr
+format:
+  clean-revealjs:
+    css: main.css
+    theme: simple
+    transition: slide
+    smaller: true
+    slide-number: true
+    toc: true
+    toc-depth: 2
+    self-contained: true
+    scrollable: true
+author:
+  - name: "Youssouf Emine"
+    email: "youssouf.emine@gmail.com"
+  - name: "Karine Hébert"
+    affiliation: "GERAD"
+    affiliation-url: "https://gerad.ca"
+    email: "karine.hebert@gerad.ca"
+logo: images/gerad.png
+date: last-modified
+---
+
+# Ti*k*Z
+
+## Qu'est-ce que Ti*k*Z?
+
+- Ti*k*Z est un langage de dessin vectoriel intégré à **LaTeX**.
+- Il permet de créer des graphiques de haute qualité directement dans vos documents LaTeX.
+- Basé sur le package **PGF** (Portable Graphics Format).
+- Intègre des commandes pour dessiner des formes, des lignes, des courbes, du texte, etc.
+
+## Comment utiliser Ti*k*Z?
+
+1. Ti*k*z vient avec l'installation standard de LaTeX. Pas besoin d'installation supplémentaire.
+
+2. Pour charger le package, ajoutez la ligne suivante dans le préambule de votre document LaTeX:
+```latex
+\usepackage{tikz}
+```
+
+3. Pour dessiner avec Ti*k*Z, utilisez l'environnement `tikzpicture`:
+```latexlatex
+\begin{tikzpicture}
+  % Vos commandes de dessin ici
+\end{tikzpicture}
+```
+
+# Concepts de base
+
+## Premiers dessins avec Ti*k*Z
+
+::::{.columns}
+
+::: {.column width="50%"}
+
+```{r tikz-line-code}
+#| echo: true
+#| out.width: "20%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \draw (0,0) -- (2,3);
+\end{tikzpicture}
+```
+
+:::
+
+::::
+
+<br>
+
+::: {.fragment}
+
+#### Explication:
+
+- `\begin{tikzpicture}` et `\end{tikzpicture}`: Définissent l'environnement de dessin.
+- `\draw`: Commande pour dessiner des lignes et des formes.
+- `(0,0) -- (2,3)`: Spécifie une ligne allant du point (0,0) au point (2,3). Par défaut, les unités sont en centimètres. On peut aussi utiliser d'autres unités comme `pt`, `mm`, etc.
+- `;`: Termine la commande de dessin.
+
+:::
+
+## Placement des dessins
+
+Lorsqu'on dessine avec Ti*k*Z, LaTeX place le dessin à l'interieur d'une boîte imaginaire qui englobe le contenu du dessin:
+
+::::{.columns}
+
+::: {.column width="50%"}
+
+```{r tikz-line-inside-box-code}
+#| echo: true
+#| out.width: "40%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \draw (0,0) -- (2,3);
+  \draw[red, ultra thick, dashed]
+    (current bounding box.south west)
+    rectangle
+    (current bounding box.north east);
+\end{tikzpicture}
+```
+:::
+
+::::
+
+## Des images Ti*k*Z dans du texte ou des figures
+
+On peut insérer des images Ti*k*Z directement dans directement dans du texte.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```latex
+Voici un dessin
+\begin{tikzpicture}
+  \draw (0,0) -- (1,1);
+\end{tikzpicture}
+dans une phrase.
+```
+:::
+
+::: {.column width="50%"}
+```{r tikz-inline}
+#| echo: false
+#| out.width: "100%"
+#| fig.align: "center"
+knitr::include_graphics("tikz/tikz-inline/main.svg")
+```
+:::
+
+::::
+
+<br>
+
+On peut également insérer des dessins Ti*k*Z dans des figures flottantes.
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+```latex
+\begin{figure}[h]
+\centering
+\begin{tikzpicture}
+  \draw (0,0) -- (2,3);
+\end{tikzpicture}
+\caption{Une ligne dessinée avec Ti\emph{k}Z.}
+\end{figure} 
+```
+:::
+
+::: {.column width="50%"}
+
+```{r tikz-line-inside-figure}
+#| echo: false
+#| out.width: "80%"
+#| fig.align: "center"
+knitr::include_graphics("tikz/tikz-line-inside-figure/main.svg")
+```
+
+:::
+
+::::
+
+## D'autres dessins avec Ti*k*Z
+
+
+::::{.columns}
+
+::: {.column width="50%"}
+
+#### Dessiner un triangle
+
+On peut dessiner des formes plus complexes en combinant plusieurs commandes de dessin.
+
+```{r tikz-triangle-code}
+#| echo: true
+#| out.width: "30%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \draw (0,0) -- (2,3) -- (4,0) -- cycle;
+\end{tikzpicture}
+```
+:::
+
+::: {.column width="50%"}
+
+#### Rédimensionner un dessin
+
+On peut redimensionner un dessin Ti*k*Z en utilisant des options de mise à l'échelle (`scale`).
+
+
+```{r tikz-triangle-scaled-code}
+#| echo: true
+#| out.width: "15%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}[scale=0.5]
+  \draw (0,0) -- (2,3) -- (4,0) -- cycle;
+\end{tikzpicture}
+```
+
+:::
+
+::::
+
+## Bonne pratique: Séparer le code du dessin du code du document
+
+Il est recommandé de séparer le code Ti*k*Z du code LaTeX principal en utilisant des fichiers externes. Cela facilite la gestion et la réutilisation des dessins.
+
+```latex
+\input{chemin/vers/dessin/tikz.tex}
+```
+
+## Formes géométriques de base
+
+Pour dessiner des formes géométriques de base, on utilise les commandes suivantes:
+
+- **Ligne**: `\draw (x1,y1) -- (x2,y2);` where `(x1,y1)` and `(x2,y2)` are the coordinates of the endpoints.
+
+- **Cercle**: `\draw (x,y) circle (radius);` where `(x,y)` is the center and `radius` is the radius of the circle.
+
+- **Rectangle**: `\draw (x1,y1) rectangle (x2,y2);` where `(x1,y1)` and `(x2,y2)` are the coordinates of opposite corners of the rectangle.
+
+- **Polygone**: `\draw (x1,y1) -- (x2,y2) -- (x3,y3) -- cycle;` pour dessiner un polygone en reliant plusieurs points.
+
+- **Parabole**: `\draw (x1,y1) parabola (x2,y2);` pour dessiner la courbe d'une parabole qui passe par les points spécifiés.
+
+- **Ellipse**: `\draw (x,y) ellipse (x radius and y radius);` où `(x,y)` est le centre et `x radius` et `y radius` sont les rayons le long des axes x et y respectivement.
+
+- **Arc de cercle**: `\draw (x1,y1) arc (start:end:radius);` pour dessiner un arc de cercle à partir d'un point donné avec un angle de départ, un angle de fin et un rayon spécifiés.
+
+## Décorations sur les lignes
+
+- **Couleur**: `\draw[red] (0,0) -- (2,2);` pour dessiner une ligne rouge.
+
+- **Épaisseur**: `\draw[ultra thick] (0,0) -- (2,2);` pour dessiner une ligne très épaisse.
+    * `ultra thin`, `very thin`, `thin`, `thick`, `very thick`, `ultra thick`
+    * `line width=2pt` pour une épaisseur personnalisée.
+
+- **Style de ligne**: `\draw[dashed] (0,0) -- (2,2);` pour dessiner une ligne en pointillés.
+    * `dotted`, `dashed`, `dash dot`, `solid`
+
+- **Flèches**: `\draw[->] (0,0) -- (2,2);` pour dessiner une ligne avec une flèche à la fin.
+    * `<-`: flèche au début
+    * `<->`: flèches aux deux extrémités
+    * `stealth`, `latex` pour différents styles de flèches.
+  
+- **Courbature**: `\draw[bend left] (0,0) to (2,2);` pour dessiner une ligne courbée.
+    * `bend right` pour une courbure vers la droite.
+    * `out=angle`, `in=angle` pour contrôler les angles de sortie et d'entrée de la courbe.
+
+# Graphes: Noeuds et Arêtes
+
+## Noeuds
+
+Un noeud est un point dans le dessin qui peut contenir du texte ou d'autres éléments. On crée un noeud avec la commande `\node`.
+
+```latex
+\node[options] (name) at (x,y) {content};
+```
+
+- `options`: Personnalisation du noeud (forme, couleur, etc.).
+- `name`: Nom du noeud pour référence ultérieure.
+- `(x,y)`: Coordonnées du noeud.
+- `content`: Contenu du noeud (texte, mathématiques, etc.). Ce contenu est obligatoire.
+
+#### Exemple:
+
+```{r tikz-nodes-example}
+#| echo: true
+#| out.width: "20%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \node[draw, circle, red] (A) at (0,0) {A};
+  \node[draw, rectangle, blue] (B) at (3,0) {B};
+\end{tikzpicture}
+```
+
+## Arêtes
+
+Une arête est une ligne qui connecte deux noeuds. On crée une arête en utilisant la commande `\draw` avec les noms des noeuds.
+
+```latex
+\draw[options] (node1) -- (node2);
+```
+
+- `options`: Personnalisation de l'arête (style, couleur, etc.).
+- `node1` et `node2`: Noms des noeuds à connecter.
+
+#### Exemple:
+
+```{r tikz-edges-example}
+#| echo: true
+#| out.width: "20%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \node[draw, circle] (A) at (0,0) {A};
+  \node[draw, circle] (B) at (3,0) {B};
+  \draw[->, thick] (A) -- (B);
+\end{tikzpicture}
+```
+
+## Étiquettes
+
+On peut ajouter des étiquettes sur les noeuds et les arêtes pour fournir des informations supplémentaires.
+
+```latex
+\node[options, label=position:{text}] (name) at (x,y) {content};
+```
+
+- `position`: Position de l'étiquette par rapport au noeud (e.g., `above`, `below`, `left`, `right`, `30`).
+- `text`: Texte de l'étiquette.
+
+#### Exemple:
+
+```{r tikz-nodes-labeled-example}
+#| echo: true
+#| out.width: "40%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \node[draw, circle, label=above:{Noeud A}] (A) at (0,0) {A};
+  \node[draw, circle, label=20:{Noeud B}] (B) at (3,0) {B};
+\end{tikzpicture}
+```
+
+On peut aussi étiqueter les arêtes:
+
+```latex
+\draw[->] (node1) -- node[options] {content} (node2);
+```
+- `options`: Personnalisation de l'étiquette (position, style, etc.).
+- `content`: Texte de l'étiquette.
+
+#### Exemple:
+
+```{r tikz-edges-labeled-example}
+#| echo: true
+#| out.width: "40%"
+#| fig.align: "center"
+#| engine: tikz
+\begin{tikzpicture}
+  \node[draw, circle] (A) at (0,0) {A};
+  \node[draw, circle] (B) at (3,0) {B};
+  \draw[->] (A) -- node[above] {Étiquette} (B);
+\end{tikzpicture}
+```

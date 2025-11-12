@@ -1,0 +1,23 @@
+---
+pagetitle: "Exemples"
+---
+
+::: {style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin: 2rem 0;"}
+
+::: {.card style="padding: 1.5rem; border: 2px solid #007bff; border-radius: 10px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,123,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"}
+### [Exemple 1](01-BasicExample/main.html)
+:::
+
+::: {.card style="padding: 1.5rem; border: 2px solid #007bff; border-radius: 10px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,123,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"}
+### [Exemple 2](02-BasicExample/main.html)
+:::
+
+::: {.card style="padding: 1.5rem; border: 2px solid #007bff; border-radius: 10px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,123,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"}
+### [Mouvement de projectile](03-ProjectileMotion/main.html)
+:::
+
+::: {.card style="padding: 1.5rem; border: 2px solid #007bff; border-radius: 10px; text-align: center; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-5px)'; this.style.boxShadow='0 10px 20px rgba(0,123,255,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='none'"}
+### [Graphe du VRP](04-VRP/main.html)
+:::
+
+:::
