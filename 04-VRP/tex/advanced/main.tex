@@ -1,20 +1,22 @@
 \documentclass{standalone}
 
 \usepackage{tikz}
+
+\begin{document}
+
 \usetikzlibrary{shapes.geometric}
 \usetikzlibrary{arrows.meta}
 \usetikzlibrary{intersections}
 \usetikzlibrary{calc}
 
-\newcommand\DrawDepot[1][black]{%
-% #1: color
+\newcommand\DrawDepot{%
 \tikzset{
     depot line/.style={
         line width=2pt,
         draw=black!80
     },
     depot fill/.style={
-        fill=#1!80
+        fill=orange!80
     }
 }
 \def\NumItems{3}
@@ -111,8 +113,7 @@
     ;
 }
 
-\newcommand\DrawCar[1][black]{%
-% #1: color
+\newcommand\DrawCar{%
 \begin{tikzpicture}
 \tikzset{
     car line/.style={
@@ -120,7 +121,7 @@
         draw=black!80
     },
     car fill/.style={
-        fill=#1!80
+        fill=orange!80
     }
 }
 
@@ -166,7 +167,7 @@
 
 \draw [car line, car fill]
     (front wheel center)
-    ++ ({\WheelOuterRadius}, 0)
+    ++ (0:{\WheelOuterRadius})
     arc (0:90:{\WheelOuterRadius})
     -- ++(0, \TrunkInnerHeight)
     -- ++(\TrunkOuterWidth, 0)
@@ -178,36 +179,33 @@
 
 \draw [car line, car fill]
     (front wheel center)
-    ++ (0, {\WheelOuterRadius})
-    arc (90:180:{\WheelOuterRadius})
-    [rounded corners=5pt]
-    -- ++({-\HeadInnerWidth}, 0)
-    -- ++(0, \HeadInnerHeight)
-    -- ++(\HeadOuterWidth, \HeadInnerHeight)
-    -- cycle
+    ++ (180:{\WheelOuterRadius})
+    arc (180:100:{\WheelOuterRadius})
+    [rounded corners=10pt]
+    -- ++ (0, 1.5*\HeadInnerHeight)
+    -- ++({-\HeadOuterWidth}, -\HeadInnerHeight)
+    |- ($(front wheel center) + (180:{\WheelOuterRadius})$)
     ;
 
 \end{tikzpicture}
 
 }
 
-\begin{document}
-
 \begin{tikzpicture}
 
-\DrawDepot[orange]
+\DrawDepot
 
 \tikzset{
     client/.style={
         circle,
         draw=black!80,
         fill=orange,
-        minimum size=8mm,
-        line width=2pt
+        minimum size=15mm,
+        line width=4pt
     }
 }
 
-\def\Unit{4}
+\def\Unit{8}
 
 \foreach \Angle/\Radius [count=\i] in {%
     5/6.2,
@@ -229,10 +227,6 @@
     345/3.9%
 } {
     \node[client] (client\i) at (\Angle:\Radius * \Unit) {};
-}
-
-\foreach \i in {1,...,17} {
-    \node at (client\i) {\i};
 }
 
 % Routes:
@@ -296,8 +290,8 @@
             above,
             outer sep=4pt,
             rotate={\angle},
-            scale=0.7
-        ] {\DrawCar[orange]}
+            scale=1.0
+        ] {\DrawCar}
         (client\endnode)
         ;
 }
