@@ -10,7 +10,7 @@ format:
 Dans cet exemple, nous allons dessiner un graphique simple en utilisant TikZ, mais cette fois-ci en commençant par le résultat généré par un agent IA comme ChatGPT. L'image ci-dessous représente l'objectif final que nous souhaitons atteindre.
 
 ::: {.text-center}
-![](image.jpg){width=400px}
+![](image.jpg){style="transform: rotate(270deg);" width="400px"}
 :::
 
 # ChatGPT

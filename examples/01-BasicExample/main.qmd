@@ -9,7 +9,9 @@ format:
 
 Nous souhaitons dessiner l'image suivante en utilisant le package `tikz` :
 
-![](image.jpg)
+::: {.text-center}
+![](image.jpg){style="transform: rotate(270deg);" width="400px"}
+:::
 
 On commence par créer un fichier `standalone` avec le contenu suivant :
 
